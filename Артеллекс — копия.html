@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АРТИЛЛЕКС - Соревнование по созданию и расследованию преступлений</title>
+    <style>
+	 .red-stringi { text-indent: 60px;}
+         
+	.text-size { font-size: 0.7em; /* 70% от текущего размера */}
+
+	.vertical-space {
+		margin-top: 1em;
+		margin-bottom: 1em;}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #6dd5ed 100%);
+            color: white;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(109, 213, 237, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #6dd5ed;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #e0f7ff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #6dd5ed, #2193b0);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(33, 147, 176, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(33, 147, 176, 0.6);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(109, 213, 237, 0.3);
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1em;
+        }
+
+        .about-image {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Rules */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .rule-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .rule-card h3 {
+            color: #6dd5ed;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+.small-heading  {
+    color: #FFFFFF  !important;
+    margin-bottom: 15px;
+    font-size: 1.1em !important;
+}
+
+        /* Timeline */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #6dd5ed;
+        }
+
+        .timeline-item h3 {
+            color: #6dd5ed;
+            margin-bottom: 10px;
+        }
+
+        /* Registration */
+        .registration-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e0f7ff;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            color: #e0f7ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">АРТИЛЛЕКС</div>
+                <nav>
+                    <ul>
+                        <li><a href="#about">О проекте</a></li>
+                        <li><a href="#rules">Правила</a></li>
+                        <li><a href="#timeline">Этапы</a></li>
+                        <li><a href="#register">Регистрация</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>АРТИЛЛЕКС</h1>
+            <p>Инновационное соревнование на стыке искусственного интеллекта и детективного расследования. Создавайте сложные дела и раскрывайте преступления, используя передовые технологии.</p>
+            <a href="#register" class="cta-button">Принять участие</a>
+        </div>
+    </section>
+
+   <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">О проекте</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>АРТИЛЛЕКС — это уникальная платформа для тех, кто хочет испытать свои навыки в создании и расследовании виртуальных преступлений с использованием искусственного интеллекта.</p>
+                    <br>
+                    <p>Участники соревнуются в двух ролях: создатели сложных детективных сюжетов и следователи, раскрывающие эти дела. Это пространство для развития креативного мышления, логики и технологических навыков.</p>
+                    <br>
+                    <p>Присоединяйтесь к сообществу инноваторов и станьте частью будущего детективного жанра!</p>
+                </div>
+            <div class="about-image">
+                <div class="about-image">
+    <img src="https://i.postimg.cc/TPp2FDk3/image.jpg" alt="Артиллекс" style="max-width: 100%; height: auto; border-radius: 10px;">
+</div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- Rules Section -->
+    <section id="rules">
+        <div class="container">
+            <h2 class="section-title">Правила участия</h2>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <h3>Формат</h3>
+                    <p>Командное соревнование (3-5 человек). Две роли: Создатели и Сыщики. После каждого раунда команды меняются ролями.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Создатели</h3>
+                    <p>Разрабатывают детективную историю. Создают бота с интерфейсом для расследования.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Сыщики</h3>
+                    <p>Расследуют дело через командный интерфейс бота. Анализируют улики, опрашивают персонажей, находят виновного.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Время</h3>
+                    <p>5 дней на создание дела, 5 на подготовку платформы, 5 дней на расследование. Время на создания дела и платформы может быть увеличенно в зависимости от готовности участников</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline">
+        <div class="container">
+            <h2 class="section-title">Этапы соревнования</h2>
+            <div class="timeline">
+
+
+
+
+
+
+<!-- РАУНД 1 -->
+
+
+
+                <div class="timeline-item">
+	   <h3>Раунд 1</h3>
+	   <h3>Этап 0: Подготовка (5 дней)</h3>
+                    <h3>Этап 1: Время на создание и расследование дела 5 дней</h3>
+                    <p>Разработка сюжета, персонажей, улик. Программирование бота с логикой расследования.</p>
+                </div>
+             
+
+
+<!-- РАУНД 2 -->
+
+
+
+                <div class="timeline-item">
+                    <h3>Раунд 2</h3>	
+	<h3 class="small-heading "> Команды меняются ролями. Начинается работа над следующим делом. </h3>
+	<h3>Этап 0. Время на редактирование платформы 2 дня</h3>
+	 <div class="vertical-space">
+	<h3>Этап 1. Время на создание и расследование дела 5 дней. </h3>
+
+
+
+
+
+<details>
+<summary></summary> 
+<p <!--class="red-stringi text-size"--> Участники могут создать новое дело или изменить историю старого</p>
+</details>
+<br></br>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+  
+
+  <section id="register">
+        <div class="container">
+            <h2 class="section-title">Регистрация на участие</h2>
+            <div class="registration-form">
+                <form id="registrationForm">
+
+
+                    <div class="form-group">
+                        <label for="teamName">Название команды</label>
+                        <input type="text" id="teamName" name="teamName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="captainName">Имя капитана</label>
+                        <input type="text" id="captainName" name="captainName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email для связи</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teamSize">Колличество участников</label>
+                        <input type="number" id="teamSize" name="teamSize" min="2" max="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Имена участников (ФИО, Учебное заведение, ник в Телеграмм)</label>
+                        <textarea id="experience" name="experience" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%; border: none; cursor: pointer;">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </section>
+-->
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">АРТИЛЛЕКС</div>
+                <div class="contact-info">
+                    <p>Email: artilex@competition.ru</p>
+                    <p>Телефон: +7 (999) 906-45-15</p>
+                    <p>© 2025 АРТИЛЛЕКС. Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission handling
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за регистрацию! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(30, 60, 114, 0.95)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.3)';
+            }
+        });
+    </script>
+</body>
+</html>
