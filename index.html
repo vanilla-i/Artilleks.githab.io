@@ -441,7 +441,7 @@
 				
 	</div>
     <!-- Registration Section -->
-
+				
 <section id="register">
     <div class="container">
         <h2 class="section-title">Регистрация на участие</h2>
@@ -472,7 +472,7 @@
         </div>
     </div>
 </section>
-				
+
 <script>
 document.getElementById('registrationForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -485,38 +485,31 @@ Email: ${data.get('email')}
 Участников: ${data.get('teamSize')}
 Состав: ${data.get('experience')}`;
 
-    // Пробуем разные варианты chat_id
-    const chatIds = [
-        '1002753283159',  // как строка
-        1002753283159,    // как число
-        '-1002753283159', // если это группа/канал
-        '@vavan11111'   // если есть username
-    ];
-
-    // Пробуем отправить в первый вариант
+    // Используем ваш chat_id из getUpdates
     fetch('https://api.telegram.org/bot7881799800:AAHKMlXp97ulYsPU4x7iVNkdSGRTY1usFfc/sendMessage', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            chat_id: 1002753283159, // пробуем как число
+            chat_id: 1881472477, // Ваш реальный chat_id!
             text: message
         })
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Ответ Telegram:', data);
         if (data.ok) {
             alert('✅ Заявка отправлена!');
+            document.getElementById('registrationForm').reset();
         } else {
-            alert('❌ Ошибка Telegram: ' + data.description);
+            alert('Ошибка: ' + data.description);
         }
     })
     .catch(error => {
-        console.error('Ошибка:', error);
-        alert('❌ Ошибка сети');
+        alert('Ошибка сети');
     });
 });
 </script>
+
+Теперь форма будет автоматически отправлять заявки прямо в ваш Telegram! 🎉
 				
 </body>
 </html>
