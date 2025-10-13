@@ -485,61 +485,36 @@ Email: ${data.get('email')}
 Участников: ${data.get('teamSize')}
 Состав: ${data.get('experience')}`;
 
-    fetch(`https://api.telegram.org/bot7881799800:AAHKMlXp97ulYsPU4x7iVNkdSGRTY1usFfc/sendMessage`, {
+    // Правильный формат URL - через бот токен
+    fetch('https://api.telegram.org/bot7881799800:AAHKMlXp97ulYsPU4x7iVNkdSGRTY1usFfc/sendMessage', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
-            chat_id: '1002753283159',
+            chat_id: 1002753283159, // Без кавычек - это число
             text: message
         })
     })
-    .then(() => alert('Заявка отправлена!'))
-    .catch(() => alert('Ошибка!'));
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Ошибка HTTP: ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.ok) {
+            alert('Заявка отправлена!');
+        } else {
+            alert('Ошибка: ' + data.description);
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Ошибка отправки: ' + error.message);
+    });
 });
 </script>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo">АРТИЛЛЕКС</div>
-                <div class="contact-info">
-                    <p>Email: artilex@competition.ru</p>
-                    <p>Телефон: +7 (999) 906-45-15 </p>
-                    <p> © 2025 АРТИЛЛЕКС. Все права защищены.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Smooth scroll for navigation links
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                document.querySelector(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Form submission handling
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Спасибо за регистрацию! Мы свяжемся с вами в ближайшее время.');
-            this.reset();
-        });
-
-        // Header background on scroll
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(30, 60, 114, 0.95)';
-            } else {
-                header.style.background = 'rgba(0, 0, 0, 0.3)';
-            }
-        });
-    </script>
+				
 </body>
 </html>
