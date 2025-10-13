@@ -442,12 +442,11 @@
 	</div>
     <!-- Registration Section -->
 
-	<section id="register">
+<section id="register">
     <div class="container">
         <h2 class="section-title">Регистрация на участие</h2>
         <div class="registration-form">
-            <!-- УБРАЛИ внешнюю форму и оставили ТОЛЬКО форму с Formspree -->
-            <form action="https://formspree.io/f/mgvnnygk" method="POST" id="registrationForm">
+            <form id="registrationForm">
                 <div class="form-group">
                     <label for="teamName">Название команды</label>
                     <input type="text" id="teamName" name="teamName" required>
@@ -473,62 +472,31 @@
         </div>
     </div>
 </section>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				<!-- 
 
-  <section id="register">
-        <div class="container">
-            <h2 class="section-title">Регистрация на участие</h2>
-            <div class="registration-form">
-                <form id="registrationForm">
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const data = new FormData(this);
+    const message = `Новая заявка:
+Команда: ${data.get('teamName')}
+Капитан: ${data.get('captainName')}
+Email: ${data.get('email')}
+Участников: ${data.get('teamSize')}
+Состав: ${data.get('experience')}`;
 
-	<form action="https://formspree.io/f/mgvnnygk" method="POST">
-                    <div class="form-group">
-                        <label for="teamName">Название команды</label>
-                        <input type="text" id="teamName" name="teamName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="captainName">Имя капитана</label>
-                        <input type="text" id="captainName" name="captainName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email для связи</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="teamSize">Количество участников</label>
-                        <input type="number" id="teamSize" name="teamSize" min="2" max="5" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="experience">Имена участников (ФИО, Учебное заведение, ник в Телеграмм)</label>
-                        <textarea id="experience" name="experience" required></textarea>
-                    </div>
-                    <button type="submit" class="cta-button" style="width: 100%; border: none; cursor: pointer;">Зарегистрироваться</button>
-                </form>
-            </div>
-        </div>
-    </section>
--->
+    fetch(`https://api.telegram.org/bot7881799800:AAHKMlXp97ulYsPU4x7iVNkdSGRTY1usFfc/sendMessage`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            chat_id: '1002753283159',
+            text: message
+        })
+    })
+    .then(() => alert('Заявка отправлена!'))
+    .catch(() => alert('Ошибка!'));
+});
+</script>
 
     <!-- Footer -->
     <footer>
