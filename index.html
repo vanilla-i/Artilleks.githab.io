@@ -442,37 +442,6 @@
 	</div>
     <!-- Registration Section -->
 
-<section id="register">
-    <div class="container">
-        <h2 class="section-title">Регистрация на участие</h2>
-        <div class="registration-form">
-            <form id="registrationForm">
-                <div class="form-group">
-                    <label for="teamName">Название команды</label>
-                    <input type="text" id="teamName" name="teamName" required>
-                </div>
-                <div class="form-group">
-                    <label for="captainName">Имя капитана</label>
-                    <input type="text" id="captainName" name="captainName" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email для связи</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="teamSize">Количество участников</label>
-                    <input type="number" id="teamSize" name="teamSize" min="2" max="5" required>
-                </div>
-                <div class="form-group">
-                    <label for="experience">Имена участников (ФИО, Учебное заведение, ник в Телеграмм)</label>
-                    <textarea id="experience" name="experience" required></textarea>
-                </div>
-                <button type="submit" class="cta-button" style="width: 100%; border: none; cursor: pointer;">Зарегистрироваться</button>
-            </form>
-        </div>
-    </div>
-</section>
-
 <script>
 document.getElementById('registrationForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -485,33 +454,35 @@ Email: ${data.get('email')}
 Участников: ${data.get('teamSize')}
 Состав: ${data.get('experience')}`;
 
-    // Правильный формат URL - через бот токен
+    // Пробуем разные варианты chat_id
+    const chatIds = [
+        '1002753283159',  // как строка
+        1002753283159,    // как число
+        '-1002753283159', // если это группа/канал
+        '@yourusername'   // если есть username
+    ];
+
+    // Пробуем отправить в первый вариант
     fetch('https://api.telegram.org/bot7881799800:AAHKMlXp97ulYsPU4x7iVNkdSGRTY1usFfc/sendMessage', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            chat_id: 1002753283159, // Без кавычек - это число
+            chat_id: 1002753283159, // пробуем как число
             text: message
         })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Ошибка HTTP: ' + response.status);
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
+        console.log('Ответ Telegram:', data);
         if (data.ok) {
-            alert('Заявка отправлена!');
+            alert('✅ Заявка отправлена!');
         } else {
-            alert('Ошибка: ' + data.description);
+            alert('❌ Ошибка Telegram: ' + data.description);
         }
     })
     .catch(error => {
         console.error('Ошибка:', error);
-        alert('Ошибка отправки: ' + error.message);
+        alert('❌ Ошибка сети');
     });
 });
 </script>
