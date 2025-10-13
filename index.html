@@ -441,7 +441,60 @@
 				
 	</div>
     <!-- Registration Section -->
-  
+
+	<section id="register">
+    <div class="container">
+        <h2 class="section-title">Регистрация на участие</h2>
+        <div class="registration-form">
+            <!-- УБРАЛИ внешнюю форму и оставили ТОЛЬКО форму с Formspree -->
+            <form action="https://formspree.io/f/mgvnnygk" method="POST" id="registrationForm">
+                <div class="form-group">
+                    <label for="teamName">Название команды</label>
+                    <input type="text" id="teamName" name="teamName" required>
+                </div>
+                <div class="form-group">
+                    <label for="captainName">Имя капитана</label>
+                    <input type="text" id="captainName" name="captainName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email для связи</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="teamSize">Количество участников</label>
+                    <input type="number" id="teamSize" name="teamSize" min="2" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Имена участников (ФИО, Учебное заведение, ник в Телеграмм)</label>
+                    <textarea id="experience" name="experience" required></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%; border: none; cursor: pointer;">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+</section>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<!-- 
 
   <section id="register">
         <div class="container">
@@ -475,7 +528,7 @@
             </div>
         </div>
     </section>
-
+-->
 
     <!-- Footer -->
     <footer>
