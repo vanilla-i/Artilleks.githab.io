@@ -445,45 +445,9 @@
 <section id="register">
     <div class="container">
         <h2 class="section-title">Регистрация на участие</h2>
-	<img src=""qr-code.png" alt="QR код для регистрации">
+	<img src=""qr-code.png" alt="QR-код для регистрации">
     </div>
 </section>
-
-<script>
-document.getElementById('registrationForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const data = new FormData(this);
-    const message = `Новая заявка:
-Команда: ${data.get('teamName')}
-Капитан: ${data.get('captainName')}
-Email: ${data.get('email')}
-Участников: ${data.get('teamSize')}
-Состав: ${data.get('experience')}`;
-
-    // Используем ваш chat_id из getUpdates
-    fetch('https://api.telegram.org/bot7881799800:AAHKMlXp97ulYsPU4x7iVNkdSGRTY1usFfc/sendMessage', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            chat_id: 1881472477, // Ваш реальный chat_id!
-            text: message
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.ok) {
-            alert('✅ Заявка отправлена!');
-            document.getElementById('registrationForm').reset();
-        } else {
-            alert('Ошибка: ' + data.description);
-        }
-    })
-    .catch(error => {
-        alert('Ошибка сети');
-    });
-});
-</script>
 				
 </body>
 </html>
